@@ -1,7 +1,0 @@
-# foo
-
-welcome, to foo.
-
-:::{tip}
-Here is a tip.
-:::
