@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2D2D2D" />
+  
+  <title>sphinx-test :: Notebook housekeeping</title>
+  
+
+  <link rel="icon" type="image/png" sizes="32x32" href="_static/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="_static/img/favicon-16x16.png">
+  <link rel="index" title="Index" href="genindex.html"/>
+
+  <link rel="stylesheet" href="_static/css/insegel.css"/>
+  <link rel="stylesheet" href="_static/css/custom.css"/>
+
+  <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+      <script type="text/javascript" src="_static/documentation_options.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/sphinx_highlight.js"></script>
+  
+
+  <script src="https://email.tl.fortawesome.com/c/eJxNjUEOgyAQAF8jR7Kw6wIHDh7sP1Cw2mgxgmn6-3JsMqc5zEQfE8dkxOY1KKMUOI3ACFKRJpSW2AAp7ontYIaxI6i7XPJVwyeVfCQ550Os3jLrGSNOLgbdAy6s0PBk2TFNjEbsfq31LB0OnX407pJa5v2faRadwSW63mn5KuLyR9j2tgx3zecanl-55R_-jjPs"></script> 
+</head>
+
+<body>
+  <div id="insegel-container">
+    <header>
+      <div id="logo-container">
+          
+          <h1>sphinx-test</h1>
+          
+      </div>
+      <div id="project-container">
+        
+        <h1>Documentation</h1>
+        
+      </div>
+    </header>
+
+    <div id="content-container">
+
+      <div id="main-content-container">
+        <div id="main-content" role="main">
+          
+  <section id="notebook-housekeeping">
+<h1>Notebook housekeeping<a class="headerlink" href="#notebook-housekeeping" title="Link to this heading">¶</a></h1>
+<p>Tending to your notes does not only mean writing. You need to keep your <a class="reference internal" href="notebook.html"><span class="std std-doc">notebook</span></a> in great shape to make good use of it. For many maintenance tasks, <code class="docutils literal notranslate"><span class="pre">zk</span></code> can help!</p>
+<section id="find-related-notes">
+<h2>Find related notes<a class="headerlink" href="#find-related-notes" title="Link to this heading">¶</a></h2>
+<p>To surf your notebook with ease, make sure to link all related notes together. You can list notes which could be good candidates for a new link with the <code class="docutils literal notranslate"><span class="pre">--related</span></code> <a class="reference internal" href="note-filtering.html"><span class="std std-doc">filtering option</span></a>.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>zk<span class="w"> </span>list<span class="w"> </span>--related<span class="w"> </span>note.md
+</pre></div>
+</div>
+<p>This returns notes which are not connected to the given note, but with at least one linked note in common.</p>
+</section>
+<section id="find-flimsy-notes">
+<h2>Find flimsy notes<a class="headerlink" href="#find-flimsy-notes" title="Link to this heading">¶</a></h2>
+<p>To find flimsy notes needing to be fleshed out, you can list the first few notes with the smallest word count from your notebook with the following command:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>zk<span class="w"> </span>list<span class="w"> </span>--format<span class="w"> </span><span class="s1">&#39;{{word-count}}\t{{title}}&#39;</span><span class="w"> </span>--sort<span class="w"> </span>word-count<span class="w"> </span>--limit<span class="w"> </span><span class="m">20</span>
+<span class="m">4</span><span class="w">       </span>Integration<span class="w"> </span>with<span class="w"> </span>fzf
+<span class="m">5</span><span class="w">       </span>Searching<span class="w"> </span>and<span class="w"> </span>filtering<span class="w"> </span>notes
+<span class="m">63</span><span class="w">      </span>Setting<span class="w"> </span>your<span class="w"> </span>default<span class="w"> </span>editor
+<span class="m">86</span><span class="w">      </span>Anatomy<span class="w"> </span>of<span class="w"> </span>a<span class="w"> </span>notebook
+...
+</pre></div>
+</div>
+</section>
+</section>
+
+
+        </div>
+      </div>
+
+      <div id="side-menu-container">
+
+        <div id="search" role="search">
+        <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+            <input type="text" name="q" placeholder="Search..." />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+        </form>
+</div>
+
+        <div id="side-menu" role="navigation">
+
+          
+  
+    
+  
+  
+    <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="automation.html">automation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editors-integration.html">editors integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="external-call.html">Call <code class="docutils literal notranslate"><span class="pre">zk</span></code> from other programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="external-processing.html">Send notes for processing by other programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="future-proof.html">A future-proof notebook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting started with <code class="docutils literal notranslate"><span class="pre">zk</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="neuron.html">Neuron</a></li>
+<li class="toctree-l1"><a class="reference internal" href="note-creation.html">Creating a new note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="note-filtering.html">Searching and filtering notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="note-format.html">Note formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="note-frontmatter.html">YAML frontmatter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="note-id.html">Note ID</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Notebook housekeeping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebook.html">Notebook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="style.html">Styling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tags.html">Tags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template-creation.html">Template context when creating notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template-format.html">Template context when formatting a note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template.html">Template syntax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tool-editor.html">Setting your default editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tool-fzf.html">Integration with <code class="docutils literal notranslate"><span class="pre">fzf</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="tool-pager.html">Setting your default pager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tool-shell.html">Setting your default shell</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Configuration</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="config-alias.html">Command aliases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-extra.html">Extra user variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-filter.html">Named filter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-group.html">Note group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-lsp.html">LSP configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-note.html">Note configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-notebook.html">Notebook configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration file</a></li>
+</ul>
+
+  
+
+
+        </div>
+
+        
+
+      </div>
+
+    </div>
+
+<footer>
+    <div id="footer-info">
+        <ul id="build-details">
+            
+                <li class="footer-element">
+                    
+                        <a href="_sources/notebook-housekeeping.md.txt" rel="nofollow"> source</a>
+                    
+                </li>
+            
+
+            
+
+            
+        </ul>
+
+        
+            <div id="copyright">
+                &copy; 2024, zk-org
+            </div>
+        
+
+        <div id="credit">
+            created with <a href="http://sphinx-doc.org/">Sphinx</a> and <a href="https://github.com/Autophagy/insegel">Insegel</a>
+
+        </div>
+    </div>
+
+    <a id="menu-toggle" class="fa fa-bars" aria-hidden="true"></a>
+
+    <script type="text/javascript">
+      $("#menu-toggle").click(function() {
+        $("#menu-toggle").toggleClass("toggled");
+        $("#side-menu-container").slideToggle(300);
+      });
+    </script>
+
+</footer> 
+
+</div>
+
+</body>
+</html>

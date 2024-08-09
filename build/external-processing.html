@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2D2D2D" />
+  
+  <title>sphinx-test :: Send notes for processing by other programs</title>
+  
+
+  <link rel="icon" type="image/png" sizes="32x32" href="_static/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="_static/img/favicon-16x16.png">
+  <link rel="index" title="Index" href="genindex.html"/>
+
+  <link rel="stylesheet" href="_static/css/insegel.css"/>
+  <link rel="stylesheet" href="_static/css/custom.css"/>
+
+  <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+      <script type="text/javascript" src="_static/documentation_options.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/sphinx_highlight.js"></script>
+  
+
+  <script src="https://email.tl.fortawesome.com/c/eJxNjUEOgyAQAF8jR7Kw6wIHDh7sP1Cw2mgxgmn6-3JsMqc5zEQfE8dkxOY1KKMUOI3ACFKRJpSW2AAp7ontYIaxI6i7XPJVwyeVfCQ550Os3jLrGSNOLgbdAy6s0PBk2TFNjEbsfq31LB0OnX407pJa5v2faRadwSW63mn5KuLyR9j2tgx3zecanl-55R_-jjPs"></script> 
+</head>
+
+<body>
+  <div id="insegel-container">
+    <header>
+      <div id="logo-container">
+          
+          <h1>sphinx-test</h1>
+          
+      </div>
+      <div id="project-container">
+        
+        <h1>Documentation</h1>
+        
+      </div>
+    </header>
+
+    <div id="content-container">
+
+      <div id="main-content-container">
+        <div id="main-content" role="main">
+          
+  <section id="send-notes-for-processing-by-other-programs">
+<h1>Send notes for processing by other programs<a class="headerlink" href="#send-notes-for-processing-by-other-programs" title="Link to this heading">¶</a></h1>
+<p>A great way to expand <code class="docutils literal notranslate"><span class="pre">zk</span></code> feature set is to explore a wealth of command-line tools available. You can use <code class="docutils literal notranslate"><span class="pre">zk</span></code>’s powerful <a class="reference internal" href="note-filtering.html"><span class="std std-doc">searching and filtering</span></a> capabilities to select notes before delegating further processing to other programs.</p>
+<section id="process-file-paths">
+<h2>Process file paths<a class="headerlink" href="#process-file-paths" title="Link to this heading">¶</a></h2>
+<p>Many programs expect file paths for input. You can interface with such program using the <code class="docutils literal notranslate"><span class="pre">path</span></code> list format and a space delimiter.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>zk<span class="w"> </span>list<span class="w"> </span>--format<span class="w"> </span>path<span class="w"> </span>--delimiter<span class="w"> </span><span class="s2">&quot; &quot;</span>
+</pre></div>
+</div>
+<p>If the file paths can contain spaces, you may want to quote manually the paths, using the <code class="docutils literal notranslate"><span class="pre">{{path}}</span></code> <a class="reference internal" href="template-format.html"><span class="std std-doc">template variable</span></a> instead:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>zk<span class="w"> </span>list<span class="w"> </span>--format<span class="w"> </span><span class="s2">&quot;&#39;{{path}}&#39;&quot;</span><span class="w"> </span>--delimiter<span class="w"> </span><span class="s2">&quot; &quot;</span>
+</pre></div>
+</div>
+<p>As always, this is such a useful <a class="reference internal" href="config-alias.html"><span class="std std-doc">command alias</span></a> to have:</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="n">paths</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;zk list --format </span><span class="se">\&quot;</span><span class="s2">&#39;{{path}}&#39;</span><span class="se">\&quot;</span><span class="s2"> --quiet --delimiter &#39; &#39; $@&quot;</span>
+</pre></div>
+</div>
+<p>Some programs – such as <code class="docutils literal notranslate"><span class="pre">xargs</span></code> – work better when file paths are separated by the ASCII NUL character (<code class="docutils literal notranslate"><span class="pre">\0</span></code>). In this case, you can use the <code class="docutils literal notranslate"><span class="pre">--delimiter0</span></code> (or <code class="docutils literal notranslate"><span class="pre">-0</span></code>) option.</p>
+<p>For example, this command prints the full Git history of the notes:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>zk<span class="w"> </span>list<span class="w"> </span>--format<span class="w"> </span>path<span class="w"> </span>--delimiter0<span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-0<span class="w"> </span>git<span class="w"> </span>log<span class="w"> </span>--patch<span class="w"> </span>--
+</pre></div>
+</div>
+<section id="feeding-zk-to-itself">
+<h3>Feeding <code class="docutils literal notranslate"><span class="pre">zk</span></code> to itself<a class="headerlink" href="#feeding-zk-to-itself" title="Link to this heading">¶</a></h3>
+<p>Some <code class="docutils literal notranslate"><span class="pre">zk</span></code> options such as <code class="docutils literal notranslate"><span class="pre">--exclude</span></code> also take file paths for parameters. Let’s increase their flexibility by nesting <code class="docutils literal notranslate"><span class="pre">zk</span></code> calls. In this case, the delimiter will be <code class="docutils literal notranslate"><span class="pre">,</span></code>.</p>
+<p>For example, this command lists the notes which are linked by at least one other note – so the notes which are <em>not</em> orphans.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>zk<span class="w"> </span>list<span class="w"> </span>--exclude<span class="w"> </span><span class="s2">&quot;`zk list -q -f path -d &quot;</span>,<span class="s2">&quot; --orphan`&quot;</span>
+</pre></div>
+</div>
+<p>And this one finds the notes which are linked by at least one note in <code class="docutils literal notranslate"><span class="pre">journal/</span></code>.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>zk<span class="w"> </span>list<span class="w"> </span>--linked-by<span class="w"> </span><span class="s2">&quot;`zk list -q -f path -d &quot;</span>,<span class="s2">&quot; journal`&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="process-the-content-of-a-note">
+<h2>Process the content of a note<a class="headerlink" href="#process-the-content-of-a-note" title="Link to this heading">¶</a></h2>
+<p>If you want to directly transform the content instead, you may use the <code class="docutils literal notranslate"><span class="pre">raw-content</span></code> template variable, which will print the full content of the note file.</p>
+<p>In this particular case, we usually want to process only one note at a time. You can make sure that <code class="docutils literal notranslate"><span class="pre">zk</span> <span class="pre">list</span></code> will print only the first note from the result with <code class="docutils literal notranslate"><span class="pre">--limit</span> <span class="pre">1</span></code> (or <code class="docutils literal notranslate"><span class="pre">-n1</span></code>).</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>zk<span class="w"> </span>list<span class="w"> </span>--format<span class="w"> </span><span class="o">{{</span>raw-content<span class="o">}}</span><span class="w"> </span>--limit<span class="w"> </span><span class="m">1</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+        </div>
+      </div>
+
+      <div id="side-menu-container">
+
+        <div id="search" role="search">
+        <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+            <input type="text" name="q" placeholder="Search..." />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+        </form>
+</div>
+
+        <div id="side-menu" role="navigation">
+
+          
+  
+    
+  
+  
+    <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="automation.html">automation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editors-integration.html">editors integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="external-call.html">Call <code class="docutils literal notranslate"><span class="pre">zk</span></code> from other programs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Send notes for processing by other programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="future-proof.html">A future-proof notebook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting started with <code class="docutils literal notranslate"><span class="pre">zk</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="neuron.html">Neuron</a></li>
+<li class="toctree-l1"><a class="reference internal" href="note-creation.html">Creating a new note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="note-filtering.html">Searching and filtering notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="note-format.html">Note formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="note-frontmatter.html">YAML frontmatter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="note-id.html">Note ID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebook-housekeeping.html">Notebook housekeeping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebook.html">Notebook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="style.html">Styling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tags.html">Tags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template-creation.html">Template context when creating notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template-format.html">Template context when formatting a note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template.html">Template syntax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tool-editor.html">Setting your default editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tool-fzf.html">Integration with <code class="docutils literal notranslate"><span class="pre">fzf</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="tool-pager.html">Setting your default pager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tool-shell.html">Setting your default shell</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Configuration</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="config-alias.html">Command aliases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-extra.html">Extra user variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-filter.html">Named filter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-group.html">Note group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-lsp.html">LSP configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-note.html">Note configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-notebook.html">Notebook configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration file</a></li>
+</ul>
+
+  
+
+
+        </div>
+
+        
+
+      </div>
+
+    </div>
+
+<footer>
+    <div id="footer-info">
+        <ul id="build-details">
+            
+                <li class="footer-element">
+                    
+                        <a href="_sources/external-processing.md.txt" rel="nofollow"> source</a>
+                    
+                </li>
+            
+
+            
+
+            
+        </ul>
+
+        
+            <div id="copyright">
+                &copy; 2024, zk-org
+            </div>
+        
+
+        <div id="credit">
+            created with <a href="http://sphinx-doc.org/">Sphinx</a> and <a href="https://github.com/Autophagy/insegel">Insegel</a>
+
+        </div>
+    </div>
+
+    <a id="menu-toggle" class="fa fa-bars" aria-hidden="true"></a>
+
+    <script type="text/javascript">
+      $("#menu-toggle").click(function() {
+        $("#menu-toggle").toggleClass("toggled");
+        $("#side-menu-container").slideToggle(300);
+      });
+    </script>
+
+</footer> 
+
+</div>
+
+</body>
+</html>

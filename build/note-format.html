@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2D2D2D" />
+  
+  <title>sphinx-test :: Note formats</title>
+  
+
+  <link rel="icon" type="image/png" sizes="32x32" href="_static/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="_static/img/favicon-16x16.png">
+  <link rel="index" title="Index" href="genindex.html"/>
+
+  <link rel="stylesheet" href="_static/css/insegel.css"/>
+  <link rel="stylesheet" href="_static/css/custom.css"/>
+
+  <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+      <script type="text/javascript" src="_static/documentation_options.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/sphinx_highlight.js"></script>
+  
+
+  <script src="https://email.tl.fortawesome.com/c/eJxNjUEOgyAQAF8jR7Kw6wIHDh7sP1Cw2mgxgmn6-3JsMqc5zEQfE8dkxOY1KKMUOI3ACFKRJpSW2AAp7ontYIaxI6i7XPJVwyeVfCQ550Os3jLrGSNOLgbdAy6s0PBk2TFNjEbsfq31LB0OnX407pJa5v2faRadwSW63mn5KuLyR9j2tgx3zecanl-55R_-jjPs"></script> 
+</head>
+
+<body>
+  <div id="insegel-container">
+    <header>
+      <div id="logo-container">
+          
+          <h1>sphinx-test</h1>
+          
+      </div>
+      <div id="project-container">
+        
+        <h1>Documentation</h1>
+        
+      </div>
+    </header>
+
+    <div id="content-container">
+
+      <div id="main-content-container">
+        <div id="main-content" role="main">
+          
+  <section id="note-formats">
+<h1>Note formats<a class="headerlink" href="#note-formats" title="Link to this heading">¶</a></h1>
+<p>To keep your notebooks <a class="reference internal" href="future-proof.html"><span class="std std-doc">future-proof</span></a>, <code class="docutils literal notranslate"><span class="pre">zk</span></code> uses a simple plain
+text format for your notes. Only Markdown is supported at the moment, but more
+formats may be added in the future.</p>
+<section id="markdown">
+<h2>Markdown<a class="headerlink" href="#markdown" title="Link to this heading">¶</a></h2>
+<p>You can set up some features of <code class="docutils literal notranslate"><span class="pre">zk</span></code>’s Markdown parser from your
+<a class="reference internal" href="config.html"><span class="std std-doc">configuration file</span></a>, under the <code class="docutils literal notranslate"><span class="pre">[format.markdown]</span></code> section.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">link-format</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;markdown&quot;</span></code></p></td>
+<td><p>Format used to generate internal links (<code class="docutils literal notranslate"><span class="pre">markdown</span></code>, <code class="docutils literal notranslate"><span class="pre">wiki</span></code> or custom template)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">link-encode-path</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-</span></code><sup>1</sup></p></td>
+<td><p>Percent-encode paths of generated internal links</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">link-drop-extension</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+<td><p>Remove the path file extension of generated internal links</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hashtags</span> </code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+<td><p>Enable <code class="docutils literal notranslate"><span class="pre">#hashtags</span></code> support</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">colon-tags</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>Enable <code class="docutils literal notranslate"><span class="pre">:colon:separated:tags:</span></code> support</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">multiword-tags</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>Enable Bear’s <a class="reference external" href="https://blog.bear.app/2017/11/bear-tips-how-to-create-multi-word-tags/"><code class="docutils literal notranslate"><span class="pre">#multi-word</span> <span class="pre">tags#</span></code></a>. Hashtags must also be enabled.</p></td>
+</tr>
+</tbody>
+</table>
+<ol class="arabic simple">
+<li><p>Paths are not percent-encoded by default, unless the <code class="docutils literal notranslate"><span class="pre">link-format</span></code> is
+<code class="docutils literal notranslate"><span class="pre">markdown</span></code>.</p></li>
+</ol>
+<section id="customizing-the-markdown-links-generated-by-zk">
+<h3>Customizing the Markdown links generated by <code class="docutils literal notranslate"><span class="pre">zk</span></code><a class="headerlink" href="#customizing-the-markdown-links-generated-by-zk" title="Link to this heading">¶</a></h3>
+<p>By default, <code class="docutils literal notranslate"><span class="pre">zk</span></code> will generate regular Markdown links for internal links. If you
+prefer to use <code class="docutils literal notranslate"><span class="pre">[[Wiki</span> <span class="pre">Links]]</span></code> instead, set the <code class="docutils literal notranslate"><span class="pre">link-format</span></code> setting to <code class="docutils literal notranslate"><span class="pre">wiki</span></code>.
+If you want to override completely the link format, you can also set
+<code class="docutils literal notranslate"><span class="pre">link-format</span></code> to a <a class="reference internal" href="template.html"><span class="std std-doc">custom template</span></a>. For example, to generate a
+wiki link using an ID from the frontmatter and a title:</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[format.markdown]</span>
+<span class="n">link-format</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;[[{{metadata.id}}|{{title}}]]&quot;</span>
+</pre></div>
+</div>
+<p>The following variables are available in the template:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">filename</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Filename of the note</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">path</span></code></p></td>
+<td><p>string</p></td>
+<td><p>File path to the note, relative to the notebook directory</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">abs-path</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Absolute file path to the note</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rel-path</span></code></p></td>
+<td><p>string</p></td>
+<td><p>File path to the note, relative to the current directory</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">title</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Note title</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">metadata</span></code></p></td>
+<td><p>map</p></td>
+<td><p>YAML frontmatter metadata, e.g. <code class="docutils literal notranslate"><span class="pre">metadata.id</span></code><sup>1</sup></p></td>
+</tr>
+</tbody>
+</table>
+<ol class="arabic simple">
+<li><p>YAML keys are normalized to lower case.</p></li>
+</ol>
+</section>
+</section>
+</section>
+
+
+        </div>
+      </div>
+
+      <div id="side-menu-container">
+
+        <div id="search" role="search">
+        <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+            <input type="text" name="q" placeholder="Search..." />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+        </form>
+</div>
+
+        <div id="side-menu" role="navigation">
+
+          
+  
+    
+  
+  
+    <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="automation.html">automation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editors-integration.html">editors integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="external-call.html">Call <code class="docutils literal notranslate"><span class="pre">zk</span></code> from other programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="external-processing.html">Send notes for processing by other programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="future-proof.html">A future-proof notebook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting started with <code class="docutils literal notranslate"><span class="pre">zk</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="neuron.html">Neuron</a></li>
+<li class="toctree-l1"><a class="reference internal" href="note-creation.html">Creating a new note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="note-filtering.html">Searching and filtering notes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Note formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="note-frontmatter.html">YAML frontmatter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="note-id.html">Note ID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebook-housekeeping.html">Notebook housekeeping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebook.html">Notebook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="style.html">Styling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tags.html">Tags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template-creation.html">Template context when creating notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template-format.html">Template context when formatting a note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template.html">Template syntax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tool-editor.html">Setting your default editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tool-fzf.html">Integration with <code class="docutils literal notranslate"><span class="pre">fzf</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="tool-pager.html">Setting your default pager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tool-shell.html">Setting your default shell</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Configuration</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="config-alias.html">Command aliases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-extra.html">Extra user variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-filter.html">Named filter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-group.html">Note group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-lsp.html">LSP configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-note.html">Note configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-notebook.html">Notebook configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration file</a></li>
+</ul>
+
+  
+
+
+        </div>
+
+        
+
+      </div>
+
+    </div>
+
+<footer>
+    <div id="footer-info">
+        <ul id="build-details">
+            
+                <li class="footer-element">
+                    
+                        <a href="_sources/note-format.md.txt" rel="nofollow"> source</a>
+                    
+                </li>
+            
+
+            
+
+            
+        </ul>
+
+        
+            <div id="copyright">
+                &copy; 2024, zk-org
+            </div>
+        
+
+        <div id="credit">
+            created with <a href="http://sphinx-doc.org/">Sphinx</a> and <a href="https://github.com/Autophagy/insegel">Insegel</a>
+
+        </div>
+    </div>
+
+    <a id="menu-toggle" class="fa fa-bars" aria-hidden="true"></a>
+
+    <script type="text/javascript">
+      $("#menu-toggle").click(function() {
+        $("#menu-toggle").toggleClass("toggled");
+        $("#side-menu-container").slideToggle(300);
+      });
+    </script>
+
+</footer> 
+
+</div>
+
+</body>
+</html>

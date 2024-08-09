@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2D2D2D" />
+  
+  <title>sphinx-test :: Extra user variables</title>
+  
+
+  <link rel="icon" type="image/png" sizes="32x32" href="../_static/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../_static/img/favicon-16x16.png">
+  <link rel="index" title="Index" href="../genindex.html"/>
+
+  <link rel="stylesheet" href="../_static/css/insegel.css"/>
+  <link rel="stylesheet" href="../_static/css/custom.css"/>
+
+  <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/sphinx_highlight.js"></script>
+  
+
+  <script src="https://email.tl.fortawesome.com/c/eJxNjUEOgyAQAF8jR7Kw6wIHDh7sP1Cw2mgxgmn6-3JsMqc5zEQfE8dkxOY1KKMUOI3ACFKRJpSW2AAp7ontYIaxI6i7XPJVwyeVfCQ550Os3jLrGSNOLgbdAy6s0PBk2TFNjEbsfq31LB0OnX407pJa5v2faRadwSW63mn5KuLyR9j2tgx3zecanl-55R_-jjPs"></script> 
+</head>
+
+<body>
+  <div id="insegel-container">
+    <header>
+      <div id="logo-container">
+          
+          <h1>sphinx-test</h1>
+          
+      </div>
+      <div id="project-container">
+        
+        <h1>Documentation</h1>
+        
+      </div>
+    </header>
+
+    <div id="content-container">
+
+      <div id="main-content-container">
+        <div id="main-content" role="main">
+          
+  <section id="extra-user-variables">
+<h1>Extra user variables<a class="headerlink" href="#extra-user-variables" title="Link to this heading">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">zk</span></code> is opened for template context extension which can be useful when <a class="reference internal" href="#note-creation.md"><span class="xref myst">creating new notes</span></a>, for example:</p>
+<ul class="simple">
+<li><p>expanding custom metadata (author, subject, etc.)</p></li>
+<li><p>modifying a <a class="reference internal" href="#template.md"><span class="xref myst">template</span></a>’s output dynamically depending on the value of an extra variable</p></li>
+</ul>
+<section id="static-extra-variables">
+<h2>Static extra variables<a class="headerlink" href="#static-extra-variables" title="Link to this heading">¶</a></h2>
+<p>You can declare static extra variables in the <a class="reference internal" href="config.html"><span class="std std-doc">configuration file</span></a>’s <code class="docutils literal notranslate"><span class="pre">[extra]</span></code> section. Each <a class="reference internal" href="config-group.html"><span class="std std-doc">note group</span></a> can have its own <code class="docutils literal notranslate"><span class="pre">[extra]</span></code> section, which may override values from the root section.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[extra]</span>
+<span class="n">visibility</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;public&quot;</span>
+<span class="n">author</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Mickaël&quot;</span>
+
+<span class="k">[group.journal.extra]</span>
+<span class="n">visibility</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;private&quot;</span><span class="w"> </span><span class="c1"># overrides</span>
+</pre></div>
+</div>
+</section>
+<section id="dynamic-extra-variables">
+<h2>Dynamic extra variables<a class="headerlink" href="#dynamic-extra-variables" title="Link to this heading">¶</a></h2>
+<p>Maybe more useful, you can provide additional extra variables dynamically to <code class="docutils literal notranslate"><span class="pre">zk</span> <span class="pre">new</span></code> from the command-line with <code class="docutils literal notranslate"><span class="pre">--extra</span></code>. Multiple variables can be separated by a comma <code class="docutils literal notranslate"><span class="pre">,</span></code>.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>zk<span class="w"> </span>new<span class="w"> </span>--extra<span class="w"> </span><span class="nv">author</span><span class="o">=</span>Thomas
+$<span class="w"> </span>zk<span class="w"> </span>new<span class="w"> </span>--extra<span class="w"> </span>show-header<span class="o">=</span><span class="m">1</span>,author<span class="o">=</span>Thomas
+</pre></div>
+</div>
+</section>
+<section id="using-extra-variables-in-templates">
+<h2>Using extra variables in templates<a class="headerlink" href="#using-extra-variables-in-templates" title="Link to this heading">¶</a></h2>
+<p>After declaring extra variables, you can expand them inside the <a class="reference internal" href="#template-creation.md"><span class="xref myst">template used when creating new notes</span></a>, using the usual <a class="reference internal" href="#template.md"><span class="xref myst">Handlebars syntax</span></a>.</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="gh"># {{title}}</span>
+
+Written by {{extra.author}}.
+
+{{#if extra.show-header}}
+Behold, the mighty dynamic header!
+{{/if}}
+</pre></div>
+</div>
+</section>
+</section>
+
+
+        </div>
+      </div>
+
+      <div id="side-menu-container">
+
+        <div id="search" role="search">
+        <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+            <input type="text" name="q" placeholder="Search..." />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+        </form>
+</div>
+
+        <div id="side-menu" role="navigation">
+
+          
+  
+    
+  
+  
+    <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../automation.html">Automating frequent tasks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../daily-journal.html">Maintaining a daily journal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../editors-integration.html">Editors integration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../editors-integration.html#language-server-protocol">Language Server Protocol</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../editors-integration.html#editor-lsp-configurations">Editor LSP configurations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../editors-integration.html#custom-commands">Custom commands</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../external-call.html">Call <code class="docutils literal notranslate"><span class="pre">zk</span></code> from other programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../external-processing.html">Send notes for processing by other programs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../external-processing.html#process-file-paths">Process file paths</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../external-processing.html#feeding-zk-to-itself">Feeding <code class="docutils literal notranslate"><span class="pre">zk</span></code> to itself</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../external-processing.html#process-the-content-of-a-note">Process the content of a note</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../future-proof.html">A future-proof notebook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started.html">Getting started with <code class="docutils literal notranslate"><span class="pre">zk</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started.html#create-a-new-notebook">Create a new notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started.html#create-your-first-notes">Create your first notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started.html#list-existing-notes">List existing notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started.html#edit-existing-notes">Edit existing notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started.html#edit-the-configuration-file">Edit the configuration file</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../neuron.html">Neuron</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../neuron.html#emanote">Emanote</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../note-creation.html">Creating a new note</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../note-creation.html#search-or-create-with-a-single-command">Search or create with a single command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../note-creation.html#create-a-note-with-initial-content">Create a note with initial content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../note-filtering.html">Searching and filtering notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../note-filtering.html#filter-by-path">Filter by path</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../note-filtering.html#search-the-title-or-body">Search the title or body</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../note-filtering.html#full-text-search-fts">Full-text search (<code class="docutils literal notranslate"><span class="pre">fts</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../note-filtering.html#exact-matches-exact">Exact matches (<code class="docutils literal notranslate"><span class="pre">exact</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../note-filtering.html#regular-expressions-re">Regular expressions (<code class="docutils literal notranslate"><span class="pre">re</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../note-filtering.html#filter-by-tags">Filter by tags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../note-filtering.html#filter-by-creation-or-modification-date">Filter by creation or modification date</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../note-filtering.html#explore-links">Explore links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../note-filtering.html#find-related-notes">Find related notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../note-filtering.html#locate-mentions-of-other-notes">Locate mentions of other notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../note-filtering.html#exclude-notes-from-the-results">Exclude notes from the results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../note-filtering.html#limit-the-number-of-results">Limit the number of results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../note-filtering.html#interactive-filtering">Interactive filtering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../note-filtering.html#sort-the-results">Sort the results</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../note-format.html">Note formats</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../note-format.html#markdown">Markdown</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../note-format.html#customizing-the-markdown-links-generated-by-zk">Customizing the Markdown links generated by <code class="docutils literal notranslate"><span class="pre">zk</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../note-frontmatter.html">YAML frontmatter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../note-id.html">Note ID</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../note-id.html#random-id">Random ID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../note-id.html#timestamp">Timestamp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../note-id.html#sequential-ids">Sequential IDs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook-housekeeping.html">Notebook housekeeping</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebook-housekeeping.html#find-related-notes">Find related notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebook-housekeeping.html#find-flimsy-notes">Find flimsy notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook.html">Notebook</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebook.html#anatomy-of-a-notebook">Anatomy of a notebook</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../style.html">Styling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../style.html#styling-rules">Styling rules</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tags.html">Tags</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tags.html#listing-tags">Listing tags</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../template-creation.html">Template context when creating notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../template-format.html">Template context when formatting a note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../template.html">Template syntax</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../template.html#additional-helpers">Additional helpers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../template.html#format-link-helper">Format Link helper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../template.html#string-helpers">String helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../template.html#date-helpers">Date helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../template.html#slug-helper">Slug helper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../template.html#prepend-helper">Prepend helper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../template.html#shell-helper">Shell helper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../template.html#style-helper">Style helper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../template.html#json-helper">JSON helper</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tool-editor.html">Setting your default editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tool-fzf.html">Integration with <code class="docutils literal notranslate"><span class="pre">fzf</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tool-fzf.html#preview-command">Preview command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tool-fzf.html#line-format">Line format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tool-fzf.html#template-context">Template context</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tool-fzf.html#fzf-options"><code class="docutils literal notranslate"><span class="pre">fzf</span></code> options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tool-fzf.html#key-bindings">Key bindings</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tool-pager.html">Setting your default pager</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tool-pager.html#disable-the-pager">Disable the pager</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tool-shell.html">Setting your default shell</a></li>
+</ul>
+
+  
+
+
+        </div>
+
+        
+
+      </div>
+
+    </div>
+
+<footer>
+    <div id="footer-info">
+        <ul id="build-details">
+            
+                <li class="footer-element">
+                    
+                        <a href="../_sources/config/config-extra.md.txt" rel="nofollow"> source</a>
+                    
+                </li>
+            
+
+            
+
+            
+        </ul>
+
+        
+            <div id="copyright">
+                &copy; 2024, zk-org
+            </div>
+        
+
+        <div id="credit">
+            created with <a href="http://sphinx-doc.org/">Sphinx</a> and <a href="https://github.com/Autophagy/insegel">Insegel</a>
+
+        </div>
+    </div>
+
+    <a id="menu-toggle" class="fa fa-bars" aria-hidden="true"></a>
+
+    <script type="text/javascript">
+      $("#menu-toggle").click(function() {
+        $("#menu-toggle").toggleClass("toggled");
+        $("#side-menu-container").slideToggle(300);
+      });
+    </script>
+
+</footer> 
+
+</div>
+
+</body>
+</html>

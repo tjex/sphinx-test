@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2D2D2D" />
+  
+  <title>sphinx-test :: Named filter</title>
+  
+
+  <link rel="icon" type="image/png" sizes="32x32" href="../_static/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../_static/img/favicon-16x16.png">
+  <link rel="index" title="Index" href="../genindex.html"/>
+
+  <link rel="stylesheet" href="../_static/css/insegel.css"/>
+  <link rel="stylesheet" href="../_static/css/custom.css"/>
+
+  <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+      <script type="text/javascript" src="../_static/documentation_options.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/sphinx_highlight.js"></script>
+  
+
+  <script src="https://email.tl.fortawesome.com/c/eJxNjUEOgyAQAF8jR7Kw6wIHDh7sP1Cw2mgxgmn6-3JsMqc5zEQfE8dkxOY1KKMUOI3ACFKRJpSW2AAp7ontYIaxI6i7XPJVwyeVfCQ550Os3jLrGSNOLgbdAy6s0PBk2TFNjEbsfq31LB0OnX407pJa5v2faRadwSW63mn5KuLyR9j2tgx3zecanl-55R_-jjPs"></script> 
+</head>
+
+<body>
+  <div id="insegel-container">
+    <header>
+      <div id="logo-container">
+          
+          <h1>sphinx-test</h1>
+          
+      </div>
+      <div id="project-container">
+        
+        <h1>Documentation</h1>
+        
+      </div>
+    </header>
+
+    <div id="content-container">
+
+      <div id="main-content-container">
+        <div id="main-content" role="main">
+          
+  <section id="named-filter">
+<h1>Named filter<a class="headerlink" href="#named-filter" title="Link to this heading">¶</a></h1>
+<p>A named filter is a set of <a class="reference internal" href="#note-filtering.md"><span class="xref myst">note filtering options</span></a> used frequently together, declared in the <a class="reference internal" href="config.html"><span class="std std-doc">configuration file</span></a>.</p>
+<p>For example, if you use regularly the following command to list your most recent notes:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>zk<span class="w"> </span>list<span class="w"> </span>--sort<span class="w"> </span>created-<span class="w"> </span>--created-after<span class="w"> </span><span class="s2">&quot;last two weeks&quot;</span>
+</pre></div>
+</div>
+<p>You can create a new named filter in the configuration file to avoid repeating yourself.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[filter]</span>
+<span class="n">recents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;--sort created- --created-after &#39;last two weeks&#39;&quot;</span>
+</pre></div>
+</div>
+<p>Then, you can use the name as an argument of <code class="docutils literal notranslate"><span class="pre">zk</span> <span class="pre">list</span></code>, with any additional option.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>zk<span class="w"> </span>list<span class="w"> </span>recents<span class="w"> </span>--limit<span class="w"> </span><span class="m">10</span>
+</pre></div>
+</div>
+<p>Named filters are similar to <a class="reference internal" href="config-alias.html"><span class="std std-doc">command aliases</span></a>, as they simplify frequent commands. However, named filters can be used with any command accepting filtering options.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>zk<span class="w"> </span>edit<span class="w"> </span>recents<span class="w"> </span>--interactive
+</pre></div>
+</div>
+<section id="filter-named-after-a-directory">
+<h2>Filter named after a directory<a class="headerlink" href="#filter-named-after-a-directory" title="Link to this heading">¶</a></h2>
+<p>In filtering commands, named filters take precedence over path arguments. As a nice side effect, this means you can customize the default filtering options for a directory by naming a filter after it.</p>
+<p>For example, by default <code class="docutils literal notranslate"><span class="pre">zk</span></code> sorts notes by their titles. However, if you keep daily notes under a <code class="docutils literal notranslate"><span class="pre">journal/</span></code> directory, you may want to sort them by creation date instead. You can use the following named filter for this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="nb">filter</span><span class="p">]</span>
+<span class="n">journal</span> <span class="o">=</span> <span class="s2">&quot;--sort created journal&quot;</span>
+</pre></div>
+</div>
+<p>Named filters cannot call themselves recursively, so by adding the <code class="docutils literal notranslate"><span class="pre">journal</span></code> argument to the filter, we are actually selecting the <code class="docutils literal notranslate"><span class="pre">journal/</span></code> directory. This means that the following commands are equivalent:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># Without the filter</span>
+$<span class="w"> </span>zk<span class="w"> </span>list<span class="w"> </span>--sort<span class="w"> </span>created<span class="w"> </span>journal
+
+<span class="c1"># With the filter</span>
+$<span class="w"> </span>zk<span class="w"> </span>list<span class="w"> </span>journal
+</pre></div>
+</div>
+</section>
+</section>
+
+
+        </div>
+      </div>
+
+      <div id="side-menu-container">
+
+        <div id="search" role="search">
+        <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+            <input type="text" name="q" placeholder="Search..." />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+        </form>
+</div>
+
+        <div id="side-menu" role="navigation">
+
+          
+  
+    
+  
+  
+    <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../automation.html">Automating frequent tasks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../daily-journal.html">Maintaining a daily journal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../editors-integration.html">Editors integration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../editors-integration.html#language-server-protocol">Language Server Protocol</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../editors-integration.html#editor-lsp-configurations">Editor LSP configurations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../editors-integration.html#custom-commands">Custom commands</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../external-call.html">Call <code class="docutils literal notranslate"><span class="pre">zk</span></code> from other programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../external-processing.html">Send notes for processing by other programs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../external-processing.html#process-file-paths">Process file paths</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../external-processing.html#feeding-zk-to-itself">Feeding <code class="docutils literal notranslate"><span class="pre">zk</span></code> to itself</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../external-processing.html#process-the-content-of-a-note">Process the content of a note</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../future-proof.html">A future-proof notebook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting-started.html">Getting started with <code class="docutils literal notranslate"><span class="pre">zk</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started.html#create-a-new-notebook">Create a new notebook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started.html#create-your-first-notes">Create your first notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started.html#list-existing-notes">List existing notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started.html#edit-existing-notes">Edit existing notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../getting-started.html#edit-the-configuration-file">Edit the configuration file</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../neuron.html">Neuron</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../neuron.html#emanote">Emanote</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../note-creation.html">Creating a new note</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../note-creation.html#search-or-create-with-a-single-command">Search or create with a single command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../note-creation.html#create-a-note-with-initial-content">Create a note with initial content</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../note-filtering.html">Searching and filtering notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../note-filtering.html#filter-by-path">Filter by path</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../note-filtering.html#search-the-title-or-body">Search the title or body</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../note-filtering.html#full-text-search-fts">Full-text search (<code class="docutils literal notranslate"><span class="pre">fts</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../note-filtering.html#exact-matches-exact">Exact matches (<code class="docutils literal notranslate"><span class="pre">exact</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../note-filtering.html#regular-expressions-re">Regular expressions (<code class="docutils literal notranslate"><span class="pre">re</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../note-filtering.html#filter-by-tags">Filter by tags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../note-filtering.html#filter-by-creation-or-modification-date">Filter by creation or modification date</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../note-filtering.html#explore-links">Explore links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../note-filtering.html#find-related-notes">Find related notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../note-filtering.html#locate-mentions-of-other-notes">Locate mentions of other notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../note-filtering.html#exclude-notes-from-the-results">Exclude notes from the results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../note-filtering.html#limit-the-number-of-results">Limit the number of results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../note-filtering.html#interactive-filtering">Interactive filtering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../note-filtering.html#sort-the-results">Sort the results</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../note-format.html">Note formats</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../note-format.html#markdown">Markdown</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../note-format.html#customizing-the-markdown-links-generated-by-zk">Customizing the Markdown links generated by <code class="docutils literal notranslate"><span class="pre">zk</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../note-frontmatter.html">YAML frontmatter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../note-id.html">Note ID</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../note-id.html#random-id">Random ID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../note-id.html#timestamp">Timestamp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../note-id.html#sequential-ids">Sequential IDs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook-housekeeping.html">Notebook housekeeping</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebook-housekeeping.html#find-related-notes">Find related notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../notebook-housekeeping.html#find-flimsy-notes">Find flimsy notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../notebook.html">Notebook</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebook.html#anatomy-of-a-notebook">Anatomy of a notebook</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../style.html">Styling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../style.html#styling-rules">Styling rules</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tags.html">Tags</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tags.html#listing-tags">Listing tags</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../template-creation.html">Template context when creating notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../template-format.html">Template context when formatting a note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../template.html">Template syntax</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../template.html#additional-helpers">Additional helpers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../template.html#format-link-helper">Format Link helper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../template.html#string-helpers">String helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../template.html#date-helpers">Date helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../template.html#slug-helper">Slug helper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../template.html#prepend-helper">Prepend helper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../template.html#shell-helper">Shell helper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../template.html#style-helper">Style helper</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../template.html#json-helper">JSON helper</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tool-editor.html">Setting your default editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tool-fzf.html">Integration with <code class="docutils literal notranslate"><span class="pre">fzf</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tool-fzf.html#preview-command">Preview command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tool-fzf.html#line-format">Line format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tool-fzf.html#template-context">Template context</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tool-fzf.html#fzf-options"><code class="docutils literal notranslate"><span class="pre">fzf</span></code> options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tool-fzf.html#key-bindings">Key bindings</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tool-pager.html">Setting your default pager</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../tool-pager.html#disable-the-pager">Disable the pager</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tool-shell.html">Setting your default shell</a></li>
+</ul>
+
+  
+
+
+        </div>
+
+        
+
+      </div>
+
+    </div>
+
+<footer>
+    <div id="footer-info">
+        <ul id="build-details">
+            
+                <li class="footer-element">
+                    
+                        <a href="../_sources/config/config-filter.md.txt" rel="nofollow"> source</a>
+                    
+                </li>
+            
+
+            
+
+            
+        </ul>
+
+        
+            <div id="copyright">
+                &copy; 2024, zk-org
+            </div>
+        
+
+        <div id="credit">
+            created with <a href="http://sphinx-doc.org/">Sphinx</a> and <a href="https://github.com/Autophagy/insegel">Insegel</a>
+
+        </div>
+    </div>
+
+    <a id="menu-toggle" class="fa fa-bars" aria-hidden="true"></a>
+
+    <script type="text/javascript">
+      $("#menu-toggle").click(function() {
+        $("#menu-toggle").toggleClass("toggled");
+        $("#side-menu-container").slideToggle(300);
+      });
+    </script>
+
+</footer> 
+
+</div>
+
+</body>
+</html>

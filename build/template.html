@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2D2D2D" />
+  
+  <title>sphinx-test :: Template syntax</title>
+  
+
+  <link rel="icon" type="image/png" sizes="32x32" href="_static/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="_static/img/favicon-16x16.png">
+  <link rel="index" title="Index" href="genindex.html"/>
+
+  <link rel="stylesheet" href="_static/css/insegel.css"/>
+  <link rel="stylesheet" href="_static/css/custom.css"/>
+
+  <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+      <script type="text/javascript" src="_static/documentation_options.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/sphinx_highlight.js"></script>
+  
+
+  <script src="https://email.tl.fortawesome.com/c/eJxNjUEOgyAQAF8jR7Kw6wIHDh7sP1Cw2mgxgmn6-3JsMqc5zEQfE8dkxOY1KKMUOI3ACFKRJpSW2AAp7ontYIaxI6i7XPJVwyeVfCQ550Os3jLrGSNOLgbdAy6s0PBk2TFNjEbsfq31LB0OnX407pJa5v2faRadwSW63mn5KuLyR9j2tgx3zecanl-55R_-jjPs"></script> 
+</head>
+
+<body>
+  <div id="insegel-container">
+    <header>
+      <div id="logo-container">
+          
+          <h1>sphinx-test</h1>
+          
+      </div>
+      <div id="project-container">
+        
+        <h1>Documentation</h1>
+        
+      </div>
+    </header>
+
+    <div id="content-container">
+
+      <div id="main-content-container">
+        <div id="main-content" role="main">
+          
+  <section id="template-syntax">
+<h1>Template syntax<a class="headerlink" href="#template-syntax" title="Link to this heading">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">zk</span></code> uses the <a class="reference external" href="https://handlebarsjs.com/guide">Handlebars template syntax</a> for
+its templates. The list of variables available depends of the running command:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="template-creation.html"><span class="std std-doc">Template context when creating notes</span></a> (i.e. <code class="docutils literal notranslate"><span class="pre">zk</span> <span class="pre">new</span></code>)</p></li>
+<li><p><a class="reference internal" href="template-format.html"><span class="std std-doc">Template context when formatting a note</span></a> (i.e.
+<code class="docutils literal notranslate"><span class="pre">zk</span> <span class="pre">list</span> <span class="pre">--format</span> <span class="pre">&lt;template&gt;</span></code>)</p></li>
+</ul>
+<section id="additional-helpers">
+<h2>Additional helpers<a class="headerlink" href="#additional-helpers" title="Link to this heading">¶</a></h2>
+<p>Besides the default Handlebars helpers, <code class="docutils literal notranslate"><span class="pre">zk</span></code> ships with additional helpers which
+you might find useful. They are available to all templates.</p>
+<section id="format-link-helper">
+<h3>Format Link helper<a class="headerlink" href="#format-link-helper" title="Link to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">{{format-link}}</span></code> helper renders an internal link to another note, according
+to the user preferences set in the <a class="reference internal" href="note-format.html"><span class="std std-doc">note formats configuration</span></a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="nb">format</span><span class="o">-</span><span class="n">link</span> <span class="s2">&quot;path/to note.md&quot;</span> <span class="s2">&quot;An interesting note&quot;</span><span class="p">}}</span>
+
+<span class="n">can</span> <span class="n">generate</span> <span class="p">(</span><span class="n">depending</span> <span class="n">on</span> <span class="n">the</span> <span class="n">user</span> <span class="n">config</span><span class="p">):</span>
+
+<span class="p">[</span><span class="n">An</span> <span class="n">interesting</span> <span class="n">note</span><span class="p">](</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">%</span><span class="mi">20</span><span class="n">note</span><span class="o">.</span><span class="n">md</span><span class="p">)</span>
+<span class="p">[[</span><span class="n">path</span><span class="o">/</span><span class="n">to</span> <span class="n">note</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p>The second parameter <code class="docutils literal notranslate"><span class="pre">title</span></code> is optional.</p>
+</section>
+<section id="string-helpers">
+<h3>String helpers<a class="headerlink" href="#string-helpers" title="Link to this heading">¶</a></h3>
+<p>There are a couple of template helpers operating on strings.</p>
+<section id="concat-helper">
+<h4>Concat helper<a class="headerlink" href="#concat-helper" title="Link to this heading">¶</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">{{concat</span> <span class="pre">s1</span> <span class="pre">s2}}</span></code> helper concatenates two strings together. For example
+<code class="docutils literal notranslate"><span class="pre">{{concat</span> <span class="pre">'&gt;</span> <span class="pre">'</span> <span class="pre">'A</span> <span class="pre">quote'}}</span></code> produces <code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">A</span> <span class="pre">quote</span></code>.</p>
+</section>
+<section id="substring-helper">
+<h4>Substring helper<a class="headerlink" href="#substring-helper" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">{{substring</span> <span class="pre">s</span> <span class="pre">index</span> <span class="pre">length}}</span></code> helper extracts a portion of the given
+string. For example:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">{{substring</span> <span class="pre">'A</span> <span class="pre">full</span> <span class="pre">quote'</span> <span class="pre">2</span> <span class="pre">4}}</span></code> outputs <code class="docutils literal notranslate"><span class="pre">full</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">{{substring</span> <span class="pre">'A</span> <span class="pre">full</span> <span class="pre">quote'</span> <span class="pre">-5</span> <span class="pre">5}</span></code> outputs <code class="docutils literal notranslate"><span class="pre">quote</span></code></p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="date-helpers">
+<h3>Date helpers<a class="headerlink" href="#date-helpers" title="Link to this heading">¶</a></h3>
+<section id="date-from-natural-string-helper">
+<h4>Date from natural string helper<a class="headerlink" href="#date-from-natural-string-helper" title="Link to this heading">¶</a></h4>
+<p>You can get a date object from a natural human date (e.g. <code class="docutils literal notranslate"><span class="pre">tomorrow</span></code>,
+<code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">weeks</span> <span class="pre">ago</span></code>, <code class="docutils literal notranslate"><span class="pre">2022-03-24</span></code>) using the <code class="docutils literal notranslate"><span class="pre">{{date}}</span></code> helper. It is most useful when
+paired with the <code class="docutils literal notranslate"><span class="pre">{{format-date}}</span></code> helper.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="n">date</span> <span class="s2">&quot;tomorrow&quot;</span><span class="p">}}</span>
+
+<span class="p">{{</span><span class="nb">format</span><span class="o">-</span><span class="n">date</span> <span class="p">(</span><span class="n">date</span> <span class="s2">&quot;last week&quot;</span><span class="p">)</span> <span class="s2">&quot;timestamp&quot;</span><span class="p">}}</span>
+</pre></div>
+</div>
+</section>
+<section id="date-formatting-helper">
+<h4>Date formatting helper<a class="headerlink" href="#date-formatting-helper" title="Link to this heading">¶</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">{{format-date}}</span></code> helper formats the given date for display.</p>
+<p>Template contexts usually provide a <code class="docutils literal notranslate"><span class="pre">now</span></code> variable which can be used to print
+the current date.</p>
+<p>The default format output by <code class="docutils literal notranslate"><span class="pre">{{format-date</span> <span class="pre">&lt;variable&gt;}}</span></code> looks like
+<code class="docutils literal notranslate"><span class="pre">2009-11-17</span></code>, but you can choose a different format by providing a second
+argument, e.g. <code class="docutils literal notranslate"><span class="pre">{{format-date</span> <span class="pre">now</span> <span class="pre">&quot;medium&quot;}}</span></code>.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Format</p></th>
+<th class="head"><p>Output</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">short</span></code></p></td>
+<td><p>11/17/2009</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">medium</span></code></p></td>
+<td><p>Nov 17, 2009</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">long</span></code></p></td>
+<td><p>November 17, 2009</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">full</span></code></p></td>
+<td><p>Tuesday, November 17, 2009</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">year</span></code></p></td>
+<td><p>2009</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">time</span></code></p></td>
+<td><p>20:34</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">timestamp</span></code></p></td>
+<td><p>200911172034</p></td>
+<td><p>Useful for sortable filenames</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">timestamp-unix</span></code></p></td>
+<td><p>1258490098</p></td>
+<td><p>Number of seconds since January 1, 1970</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">elapsed</span></code></p></td>
+<td><p>12 years ago</p></td>
+<td><p>Time elapsed since then in human-friendly format</p></td>
+</tr>
+</tbody>
+</table>
+<p>If none of the provided formats suit you, you can use a custom format using
+<code class="docutils literal notranslate"><span class="pre">strftime</span></code>-style placeholders, e.g. <code class="docutils literal notranslate"><span class="pre">{{format-date</span> <span class="pre">now</span> <span class="pre">&quot;%m-%d-%Y&quot;}}</span></code>. See
+<code class="docutils literal notranslate"><span class="pre">man</span> <span class="pre">strftime</span></code> for a list of placeholders.</p>
+</section>
+</section>
+<section id="slug-helper">
+<h3>Slug helper<a class="headerlink" href="#slug-helper" title="Link to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">{{slug}}</span></code> helper generates a URL friendly version of a text. For example,
+<code class="docutils literal notranslate"><span class="pre">{{slug</span> <span class="pre">&quot;This</span> <span class="pre">will</span> <span class="pre">be</span> <span class="pre">slugified!&quot;}}</span></code> becomes <code class="docutils literal notranslate"><span class="pre">this-will-be-slugified</span></code>.</p>
+<p>This is mostly useful to generate a safe filename containing the title passed to
+<code class="docutils literal notranslate"><span class="pre">zk</span> <span class="pre">new</span> <span class="pre">--title</span> <span class="pre">&quot;An</span> <span class="pre">interesting</span> <span class="pre">note&quot;</span></code>. With the <a class="reference internal" href="config-note.html"><span class="std std-doc"><code class="docutils literal notranslate"><span class="pre">filename</span></code></span></a>
+template <code class="docutils literal notranslate"><span class="pre">{{slug</span> <span class="pre">title}}</span></code>, it becomes <code class="docutils literal notranslate"><span class="pre">an-interesting-note.md</span></code>.</p>
+</section>
+<section id="prepend-helper">
+<h3>Prepend helper<a class="headerlink" href="#prepend-helper" title="Link to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">{{prepend}}</span></code> helper adds a prefix to every line of the given text or block.
+You can use it to generate a Markdown quote, for example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="n">prepend</span> <span class="s2">&quot;&gt; &quot;</span> <span class="s2">&quot;A quote&quot;</span><span class="p">}}</span>
+
+<span class="p">{{</span><span class="c1">#prepend &quot;&gt; &quot;}}</span>
+<span class="n">A</span> <span class="n">multiline</span>
+<span class="n">quote</span><span class="o">.</span>
+<span class="p">{{</span><span class="o">/</span><span class="n">prepend</span><span class="p">}}</span>
+</pre></div>
+</div>
+</section>
+<section id="shell-helper">
+<h3>Shell helper<a class="headerlink" href="#shell-helper" title="Link to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">{{sh}}</span></code> helper will call the given shell command and insert its output in
+the template. Your imagination is the limit!</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Get</span> <span class="n">today</span><span class="s1">&#39;s events from your calendar:</span>
+<span class="p">{{</span><span class="n">sh</span> <span class="s2">&quot;icalBuddy -b &#39;* &#39; -nc eventsToday&quot;</span><span class="p">}}</span>
+
+<span class="n">Insert</span> <span class="n">a</span> <span class="n">random</span> <span class="n">quote</span><span class="p">:</span>
+<span class="p">{{</span><span class="n">prepend</span> <span class="s1">&#39;&gt; &#39;</span> <span class="p">(</span><span class="n">sh</span> <span class="s1">&#39;fortune&#39;</span><span class="p">)}}</span>
+
+<span class="n">Download</span> <span class="n">today</span><span class="s1">&#39;s weather:</span>
+<span class="p">{{</span><span class="n">sh</span> <span class="s1">&#39;curl http://wttr.in/?0&#39;</span><span class="p">}}</span>
+</pre></div>
+</div>
+<p>When used as a block helper, the block content will be passed to the command
+through a standard input pipe.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Will output &quot;HELLO, WORLD!&quot;:
+{{#sh &quot;tr &#39;[a-z]&#39; &#39;[A-Z]&#39;&quot;}}
+Hello, world!
+{{/sh}}
+</pre></div>
+</div>
+</section>
+<section id="style-helper">
+<h3>Style helper<a class="headerlink" href="#style-helper" title="Link to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">{{style}}</span></code> helper is mostly useful when formatting content for the
+command-line. See the <a class="reference internal" href="style.html"><span class="std std-doc">styling rules</span></a> for more information.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{{</span><span class="n">style</span> <span class="s1">&#39;red bold&#39;</span> <span class="s1">&#39;A text&#39;</span><span class="p">}}</span>
+
+<span class="p">{{</span><span class="c1">#style &#39;underline&#39;}}Another text{{/style}}</span>
+</pre></div>
+</div>
+</section>
+<section id="json-helper">
+<h3>JSON helper<a class="headerlink" href="#json-helper" title="Link to this heading">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">{{json}}</span></code> helper serializes its argument to a JSON value. This is useful to
+generate valid JSON objects, for example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="p">{{</span><span class="n">json</span> <span class="n">title</span><span class="p">}},</span> <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">{{</span><span class="n">json</span> <span class="n">tags</span><span class="p">}}</span> <span class="p">}</span>
+<span class="o">-&gt;</span>
+<span class="p">{</span> <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;A </span><span class="se">\&quot;</span><span class="s2">quoted</span><span class="se">\&quot;</span><span class="s2"> title&quot;</span><span class="p">,</span> <span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;example&quot;</span><span class="p">,</span> <span class="s2">&quot;json&quot;</span><span class="p">]</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Warning</strong>: The template parser trips on <code class="docutils literal notranslate"><span class="pre">}}}</span></code>, so make sure to add an extra
+space before the third <code class="docutils literal notranslate"><span class="pre">}</span></code>.</p>
+<p>You can serialize the whole template context as a JSON object with <code class="docutils literal notranslate"><span class="pre">{{json</span> <span class="pre">.}}</span></code>,
+which is how <code class="docutils literal notranslate"><span class="pre">zk</span> <span class="pre">list</span> <span class="pre">--format</span> <span class="pre">json</span></code> produces its output.</p>
+</section>
+</section>
+</section>
+
+
+        </div>
+      </div>
+
+      <div id="side-menu-container">
+
+        <div id="search" role="search">
+        <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+            <input type="text" name="q" placeholder="Search..." />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+        </form>
+</div>
+
+        <div id="side-menu" role="navigation">
+
+          
+  
+    
+  
+  
+    <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="automation.html">automation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editors-integration.html">editors integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="external-call.html">Call <code class="docutils literal notranslate"><span class="pre">zk</span></code> from other programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="external-processing.html">Send notes for processing by other programs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="future-proof.html">A future-proof notebook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting-started.html">Getting started with <code class="docutils literal notranslate"><span class="pre">zk</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="neuron.html">Neuron</a></li>
+<li class="toctree-l1"><a class="reference internal" href="note-creation.html">Creating a new note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="note-filtering.html">Searching and filtering notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="note-format.html">Note formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="note-frontmatter.html">YAML frontmatter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="note-id.html">Note ID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebook-housekeeping.html">Notebook housekeeping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebook.html">Notebook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="style.html">Styling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tags.html">Tags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template-creation.html">Template context when creating notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="template-format.html">Template context when formatting a note</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Template syntax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tool-editor.html">Setting your default editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tool-fzf.html">Integration with <code class="docutils literal notranslate"><span class="pre">fzf</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="tool-pager.html">Setting your default pager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tool-shell.html">Setting your default shell</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Configuration</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="config-alias.html">Command aliases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-extra.html">Extra user variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-filter.html">Named filter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-group.html">Note group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-lsp.html">LSP configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-note.html">Note configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-notebook.html">Notebook configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration file</a></li>
+</ul>
+
+  
+
+
+        </div>
+
+        
+
+      </div>
+
+    </div>
+
+<footer>
+    <div id="footer-info">
+        <ul id="build-details">
+            
+                <li class="footer-element">
+                    
+                        <a href="_sources/template.md.txt" rel="nofollow"> source</a>
+                    
+                </li>
+            
+
+            
+
+            
+        </ul>
+
+        
+            <div id="copyright">
+                &copy; 2024, zk-org
+            </div>
+        
+
+        <div id="credit">
+            created with <a href="http://sphinx-doc.org/">Sphinx</a> and <a href="https://github.com/Autophagy/insegel">Insegel</a>
+
+        </div>
+    </div>
+
+    <a id="menu-toggle" class="fa fa-bars" aria-hidden="true"></a>
+
+    <script type="text/javascript">
+      $("#menu-toggle").click(function() {
+        $("#menu-toggle").toggleClass("toggled");
+        $("#side-menu-container").slideToggle(300);
+      });
+    </script>
+
+</footer> 
+
+</div>
+
+</body>
+</html>
