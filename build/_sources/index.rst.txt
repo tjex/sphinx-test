@@ -6,32 +6,13 @@
 .. toctree::
    :hidden:
    :maxdepth: 1
-   :caption: Contents:
+   :caption: Fundamentals:
 
-   automation <automation> 
-   daily journal <daily journal> 
+   getting-started 
+   custom title <getting-started>
    editors integration <editors-integration> 
-   external-call
-   external-processing
-   future-proof
-   getting-started
-   neuron
-   note-creation
-   note-filtering
-   note-format
-   note-frontmatter
-   note-id
-   notebook-housekeeping
-   notebook
-   style
-   tags
-   template-creation
-   template-format
-   template
-   tool-editor
-   tool-fzf
-   tool-pager
-   tool-shell
+   foo/test
+
 
 .. toctree::
    :hidden:

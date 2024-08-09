@@ -22,6 +22,7 @@ Now you are ready to write your very first note. Pick a subject,
 ```sh
 $ zk new --title "An interesting concept"
 ```
+<img alt="Create a note" width="85%" src="assets/media/new1.svg"/>
 
 You can customize your experience using [custom templates](template.md) to
 generate many kind of notes.

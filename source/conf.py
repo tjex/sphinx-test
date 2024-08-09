@@ -18,14 +18,18 @@ extensions = ["myst_parser"]
 templates_path = ["_templates"]
 exclude_patterns = []
 
+myst_enable_extensions = ["colon_fence", "html_image"]
+
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = "insegel"
 html_static_path = ["_static"]
-globaltoc_maxdepth = 1
+html_css_files = [
+    "css/custom.css",
+]
 
 # The master toctree document.
 master_doc = "index"
-html_theme_options = {"navigation_depth": 1}
+html_theme_options = {"navigation_depth": 2}
